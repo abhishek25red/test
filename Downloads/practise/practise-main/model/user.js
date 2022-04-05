@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     lname: { type: String, required: true },
     fname: { type: String, required: true },
     pnumber: { type: Number, required: true },
-    mail: { type: String, required: true }
+    mail: { type: String, required: false }
 },
 {
     collection: 'users'
