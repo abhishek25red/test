@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Register User</title>
+    </head>
+    <body background="background.png">
+        <div style="position: absolute;top: 25%;left:25%;">
+            <form id="reg-form">
+                <div style="background-color: #C04545;height: 380px;width: 800px;text-align: center;padding: 20px;border-style:groove;border-color: #350E0E;opacity: 0.9;border-radius: 100px;">
+            <h3 style=" font-family: cooper;">Register Here</h3>
+                    <input type="text" style="font-size: 19px;width:170px;font-family: courier;border-color: blue;" autocomplete="off"
+                        id="fname" placeholder="First Name">
+                    <input type="text" style="font-size: 19px;width:170px;font-family: courier;border-color: blue;" autocomplete="off"
+                        id="lname" placeholder="last Name"><br><br>
+                    <input type="text" style="font-size: 19px;width:350px;font-family: courier;border-color: blue;" autocomplete="off"
+                        id="mail" placeholder="Email Id"><br><br>
+                    <input type="text" style="font-size: 19px;width:350px;font-family: courier;border-color: blue;"
+                        autocomplete="off" id="pnumber" placeholder="Phone Number"><br><br>
+                    <input type="text" style="font-size: 19px;width:350px;font-family: courier;border-color: blue;" autocomplete="off"
+                            id="username" placeholder="UserName"><br><br>
+                    <input type="password" style="font-size: 19px;width:350px;font-family: courier;border-color: blue;"
+                        autocomplete="off" id="password" placeholder="Password"><br><br>
+                    <div style="right: 220px; position: absolute;">
+                        <input type="submit" value="Register">
+                    </div><br>
+                    <input type="button"
+                    onclick='window.open("login.html")' style="color: white;background-color: blue;border-color: blue; font-family: verdana;font-size: 15px;width: 170px;height: 30px;" value="Already Have Account"><br><br>
+                </div>
+            </form>
+        </div>
+        <script>
+            const form = document.getElementById('reg-form');
+            form.addEventListener('submit',register);
+            async function register(event){
+                event.preventDefault();
+                const fname = document.getElementById('fname').value;
+                const lname = document.getElementById('lname').value;
+                const pnumber = document.getElementById('pnumber').value;
+                const mail = document.getElementById('mail').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const result = await fetch('api/register',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password,
+                        fname,
+                        lname,
+                        pnumber,
+                        mail
+                    })
+                }).then((res)=>res.json())
+                if (result.status==='ok'){
+                    alert("User Created Successfully");
+                }
+                else{
+                    alert(result.error);
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Forgotten Password</title>
+    </head>
+    <body background="background.png">
+        <div style="position: absolute;top: 25%;left:25%;">
+            <div
+                style="background-color: yellowgreen;height: 250px;width: 800px;text-align: center;padding: 20px;border-style:groove;border-color: yellow;border-radius: 100px;opacity: 0.9;">
+                <h1>Forgot Password</h1>
+                <form id="send-mail">
+                    <input type="text" style="border-radius: 10px; font-size: 19px;width: 350px;font-family: Courier;" placeholder="MAIL-ID" id="mail"><br><br>
+                    <div style="right: 220px; position: absolute;">
+                        <input type="submit" value="GO" style="background-color:blue; color: white;border-color: blue;font-family: courier; font-size: 20px;height: 40px;width: 50px;">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            const form = document.getElementById('send-mail');
+            form.addEventListener('submit', send);
+            async function send(event){
+                event.preventDefault();
+                mail = document.getElementById('mail').value;
+                const result = await fetch('api/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mail
+                    })
+                }).then((res) => res.json())
+                if (result.status === 'ok') {
+                    alert("Mail Sent");
+                }
+                else {
+                    alert(result.error);
+                }
+            }
+        </script>
+    </body>
+</html>
